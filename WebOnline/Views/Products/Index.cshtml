@@ -1,0 +1,92 @@
+﻿@model IEnumerable<WebOnline.Models.Product>
+    @using WebOnline.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutProduct.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Available)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th></th>
+    </tr>
+
+@*@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Available)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+        </td>
+    </tr>}*@
+    @foreach(var product in ViewBag.products)
+    {
+        <tr>
+            <td>@product.ProductName </td>
+            <td>@product.UnitPrice</td>
+            <td>@product.ProductDate</td>
+            <td>@product.Available</td>
+            <td>@product.Category</td>
+            <td>@product.Description</td>
+            @if (product.Image != null)
+            {
+                var base64 = Convert.ToBase64String(product.Image);
+                var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+            <td><img src="@imgSrc" style="width:120px"/></td>
+            }
+            else { <td>Tieu?</td>}
+             <td>
+            @Html.ActionLink("Edit", "Edit", new { id = product.ProductId }) |
+            @Html.ActionLink("Details", "Details", new { id = product.ProductId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = product.ProductId })
+             </td>
+        </tr>
+
+    }
+
+</table>
